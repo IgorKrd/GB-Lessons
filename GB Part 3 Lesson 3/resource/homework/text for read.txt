@@ -1,0 +1,7 @@
+﻿I was create the file and path to him with use the following instruments - java.io and java.nio!
+It's very interested!
+I want to be Java Developer!
+
+Я создал файл и путь к нему, используя следующие инструменты - java.io и java.nio!
+Это очень интересно!
+Я хочу быть разработчиком Java!
