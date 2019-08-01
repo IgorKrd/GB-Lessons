@@ -1,0 +1,104 @@
+июл 28, 2019 9:45:27 PM java.util.logging.LogManager$RootLogger log
+INFO: Канал к клиенту установлен. Этап авторизации клиента.
+июл 28, 2019 9:45:43 PM java.util.logging.LogManager$RootLogger log
+INFO: Клиент nick1 подключился
+июл 28, 2019 9:46:24 PM java.util.logging.LogManager$RootLogger log
+INFO: Пользователь nick1 покинул чат
+июл 28, 2019 9:48:27 PM java.util.logging.LogManager$RootLogger log
+INFO: Сервер запущен. Ожидаем клиентов...
+июл 28, 2019 9:48:43 PM java.util.logging.LogManager$RootLogger log
+INFO: Канал к клиенту установлен. Этап авторизации клиента.
+июл 28, 2019 9:48:43 PM java.util.logging.LogManager$RootLogger log
+INFO: Клиент nick1 подключился
+июл 28, 2019 9:48:52 PM java.util.logging.LogManager$RootLogger log
+INFO: Пользователь nick1 покинул чат
+июл 28, 2019 9:56:15 PM server.MainServer <init>
+INFO: Сервер запущен. Ожидаем клиентов...
+июл 28, 2019 9:56:26 PM server.MainServer <init>
+INFO: Канал к клиенту установлен. Этап авторизации клиента.
+июл 28, 2019 9:57:32 PM server.ClientHandler lambda$new$0
+INFO: Клиент nick3 подключился
+июл 28, 2019 9:58:22 PM server.MainServer <init>
+INFO: Канал к клиенту установлен. Этап авторизации клиента.
+июл 28, 2019 10:00:29 PM server.ClientHandler lambda$new$0
+INFO: Пользователь null покинул чат
+июл 28, 2019 10:00:35 PM server.ClientHandler lambda$new$0
+INFO: Пользователь nick3 покинул чат
+июл 28, 2019 10:02:11 PM server.MainServer <init>
+INFO: Сервер запущен. Ожидаем клиентов...
+июл 28, 2019 10:02:26 PM server.MainServer <init>
+INFO: Канал к клиенту установлен. Этап авторизации клиента.
+июл 28, 2019 10:03:11 PM server.MainServer <init>
+INFO: Канал к клиенту установлен. Этап авторизации клиента.
+июл 28, 2019 10:03:41 PM server.ClientHandler lambda$new$0
+INFO: Пользователь null покинул чат
+июл 28, 2019 10:13:55 PM server.ClientHandler lambda$new$0
+INFO: Пользователь null покинул чат
+июл 28, 2019 10:14:17 PM server.MainServer <init>
+INFO: Сервер запущен. Ожидаем клиентов...
+июл 28, 2019 10:14:23 PM server.MainServer <init>
+INFO: Канал к клиенту установлен. Этап авторизации клиента.
+июл 28, 2019 10:16:25 PM server.ClientHandler lambda$new$0
+INFO: Пользователь null покинул чат
+июл 28, 2019 10:17:46 PM server.MainServer <init>
+INFO: Сервер запущен. Ожидаем клиентов...
+июл 28, 2019 10:17:51 PM server.MainServer <init>
+INFO: Канал к клиенту установлен. Этап авторизации клиента.
+июл 28, 2019 10:19:18 PM server.MainServer <init>
+INFO: Канал к клиенту установлен. Этап авторизации клиента.
+июл 28, 2019 10:21:06 PM server.ClientHandler lambda$new$0
+INFO: Клиент nick6 подключился
+июл 28, 2019 10:28:41 PM server.ClientHandler lambda$new$0
+INFO: Пользователь null покинул чат
+июл 28, 2019 10:28:48 PM server.ClientHandler lambda$new$0
+INFO: Пользователь nick6 покинул чат
+июл 28, 2019 10:34:03 PM server.MainServer <init>
+INFO: Сервер запущен. Ожидаем клиентов...
+июл 28, 2019 10:34:24 PM server.MainServer <init>
+INFO: Канал к клиенту установлен. Этап авторизации клиента.
+июл 28, 2019 10:34:24 PM server.ClientHandler$1 run
+INFO: Клиент nick1 подключился
+июл 28, 2019 10:34:33 PM server.ClientHandler$1 run
+INFO: Пользователь nick1 покинул чат
+июл 28, 2019 10:37:42 PM server.MainServer <init>
+INFO: Канал к клиенту установлен. Этап авторизации клиента.
+июл 28, 2019 10:42:55 PM server.ClientHandler$1 run
+INFO: Пользователь null покинул чат
+июл 28, 2019 10:43:06 PM server.MainServer <init>
+INFO: Сервер запущен. Ожидаем клиентов...
+июл 28, 2019 10:43:15 PM server.MainServer <init>
+INFO: Канал к клиенту установлен. Этап авторизации клиента.
+июл 28, 2019 11:06:00 PM server.ClientHandler lambda$new$0
+INFO: Пользователь null покинул чат
+июл 28, 2019 11:06:15 PM server.MainServer <init>
+INFO: Сервер запущен. Ожидаем клиентов...
+июл 28, 2019 11:06:24 PM server.MainServer <init>
+INFO: Канал к клиенту установлен. Этап авторизации клиента.
+июл 28, 2019 11:07:41 PM server.ClientHandler lambda$new$0
+INFO: Пользователь null покинул чат
+июл 28, 2019 11:42:31 PM server.MainServer <init>
+INFO: Сервер запущен. Ожидаем клиентов...
+июл 28, 2019 11:42:36 PM server.MainServer <init>
+INFO: Канал к клиенту установлен. Этап авторизации клиента.
+июл 28, 2019 11:43:23 PM server.ClientHandler lambda$new$0
+INFO: Пользователь null покинул чат
+июл 28, 2019 11:53:02 PM server.MainServer <init>
+INFO: Сервер запущен. Ожидаем клиентов...
+июл 28, 2019 11:53:10 PM server.MainServer <init>
+INFO: Канал к клиенту установлен. Этап авторизации клиента.
+июл 28, 2019 11:55:23 PM server.ClientHandler lambda$new$0
+INFO: Пользователь null покинул чат
+июл 28, 2019 11:56:32 PM server.MainServer <init>
+INFO: Сервер запущен. Ожидаем клиентов...
+июл 28, 2019 11:56:49 PM server.MainServer <init>
+INFO: Канал к клиенту установлен. Этап авторизации клиента.
+июл 28, 2019 11:57:01 PM server.MainServer <init>
+INFO: Канал к клиенту установлен. Этап авторизации клиента.
+июл 28, 2019 11:57:40 PM server.ClientHandler lambda$new$0
+INFO: Пользователь null покинул чат
+июл 28, 2019 11:57:53 PM server.MainServer <init>
+INFO: Сервер запущен. Ожидаем клиентов...
+июл 28, 2019 11:57:58 PM server.MainServer <init>
+INFO: Канал к клиенту установлен. Этап авторизации клиента.
+июл 28, 2019 11:58:31 PM server.ClientHandler lambda$new$0
+INFO: Пользователь null покинул чат

@@ -1,11 +1,11 @@
 package server;
 
-
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.logging.Level;
 
 
-public class AuthService {
+public class DbService {
 
     private static Connection connection;
     private static Statement stmt;
@@ -14,67 +14,86 @@ public class AuthService {
     private static ArrayList<String> loginList = new ArrayList<>();
     private static ArrayList<String> userNicksList = new ArrayList<>();
 
-
     public static void connect() throws SQLException {
         try {
-            // обращение к драйверу
             Class.forName("org.sqlite.JDBC");
-            // установка подключения
             connection = DriverManager.getConnection("jdbc:sqlite:mainDB.db");
-            // создание Statement для возможности оправки запросов
             stmt = connection.createStatement();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
 
-    public static String getNickByLoginAndPass(String login, String pass)  {
 
+    public static String getNickByLoginAndPass(String login, String pass) {
+
+        String sql = String.format("select nickname FROM main where" +
+                " login = '%s' and password = '%s'", login, pass);
         try {
-        connect();
-
-            // формирование запроса
-            String sql = String.format("SELECT nickname FROM main where login = '%s' and password = '%s'", login, pass);
-
-            // оправка запроса и получение ответа
             ResultSet rs = stmt.executeQuery(sql);
-
-            // если есть строка возвращаем результат если нет то вернеться null
             if (rs.next()) {
-
                 return rs.getString(1);
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        //disconnect();
         return null;
     }
 
+    public static void saveHistory(String login, String msg) {
+        String sql = String.format("INSERT INTO history (post, nick)\n" +
+                "VALUES ('%s', '%s')", msg, login);
+        try {
+            stmt.execute(sql);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static StringBuilder getHistoryChat() {
+        StringBuilder stringBuilder = new StringBuilder();
+        String sql = String.format("SELECT nick, post from history\n" +
+                "    ORDER BY ID");
+        try {
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                stringBuilder.append(rs.getString("nick") + " " + rs.getString("post") + "\n");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return stringBuilder;
+    }
 
     public static boolean tryToRegNewUsers(String login, String password, String userNick) throws SQLException {
-
-        //connect();
 
         boolean tryToRegs;
 
         try {
             String sqlReg = String.format("INSERT INTO main (login, password, nickname) VALUES (\"%s\", \"%s\", \"%s\")", login, password, userNick);
             stmt.executeUpdate(sqlReg);
+
+            MainServer.logger.log(Level.INFO, "Добавлен новый пользователь: " + userNick + " в БД клиентов.");
+
+
             tryToRegs = true;
+
 
         } catch (SQLException e) {
             e.printStackTrace();
             tryToRegs = false;
         }
-        disconnect();
+
         return tryToRegs;
     }
 
     public static boolean checkNewLogin(String login) throws SQLException {
 
-        connect();
+        connect();  //если убрать этот вызов метода (connect), то выдаёт NullPointerException, при вызове методов checkNewLogin,
+        // checkNewNick, tryToRegNewUsers, так как не соединения с DB...
+        // при его наличии  данный вызов также поддерживает и работу метода checkNewNick, tryToRegNewUsers.
+        // и проблем с занятостью БД нет (добавляю несколько новых пользователей подряд)!
+
         boolean checkLogin = false;
 
         try {
@@ -111,13 +130,10 @@ public class AuthService {
             }
 
         }
-        //disconnect();
         return checkLogin;
     }
 
     public static boolean checkNewNick(String userNick) throws SQLException {
-
-        //connect();
 
         boolean checkNick = false;
 
@@ -152,17 +168,15 @@ public class AuthService {
 //                PassValidateController.actiontargetSecond.setText("Ok. This Nick is suitable!");
             }
         }
-        disconnect();
         return checkNick;
     }
 
-
     public static void disconnect() {
         try {
-            // закрываем соединение
             connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+
 }

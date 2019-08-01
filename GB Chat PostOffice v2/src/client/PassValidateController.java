@@ -7,7 +7,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import server.AuthService;
+import server.DbService;
 
 import java.sql.SQLException;
 import java.util.regex.Matcher;
@@ -57,7 +57,7 @@ public class PassValidateController {
     public void btnClick() throws SQLException {  //метод проверки валидности login/Nickname/Password
 
 
-        if (!AuthService.checkNewLogin(loginField.getText())) {
+        if (!DbService.checkNewLogin(loginField.getText())) {
 
             actiontargetFirst.setFill(Color.FIREBRICK);
             actiontargetFirst.setText("This Login is already taken by another user! Please think up another 'login'");
@@ -69,7 +69,7 @@ public class PassValidateController {
 
         }
 
-        if (!AuthService.checkNewNick(userNickName.getText())) {
+        if (!DbService.checkNewNick(userNickName.getText())) {
 
             actiontargetSecond.setFill(Color.FIREBRICK);
             actiontargetSecond.setText("This Nick is already taken by another user! Please think up another 'Nick'");
@@ -148,7 +148,7 @@ public class PassValidateController {
     public void tryToReg() throws SQLException {
 
 
-        if (!AuthService.tryToRegNewUsers(loginField.getText(), passwordField.getText(), userNickName.getText())) {
+        if (!DbService.tryToRegNewUsers(loginField.getText(), passwordField.getText(), userNickName.getText())) {
 
             actiontargetSecond.setText("");
             actiontargetFirst.setText("");

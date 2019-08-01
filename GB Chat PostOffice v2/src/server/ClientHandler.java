@@ -1,11 +1,12 @@
 package server;
 
+
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 
 
@@ -14,37 +15,42 @@ public class ClientHandler {
     private Socket socket;
     private DataInputStream in;
     private DataOutputStream out;
-    private Main server;
+    private MainServer server;
     private String nick;
-    List<String> blackList;
+    private ArrayList<String> blackList;
+
+    public String getNick() {
+        return nick;
+    }
 
     public boolean checkBlackList(String nick) {
         return blackList.contains(nick);
     }
 
+    //String nick;
 
-    public ClientHandler(Socket socket, Main server) {
+    public ClientHandler(Socket socket, MainServer server) {
 
         try {
             this.blackList = new ArrayList<>();
             this.socket = socket;
             this.server = server;
-            in = new DataInputStream(socket.getInputStream());
-            out = new DataOutputStream(socket.getOutputStream());
+            this.in = new DataInputStream(socket.getInputStream());
+            this.out = new DataOutputStream(socket.getOutputStream());
 
+//            new Thread(new Runnable() {
+////
+////                @Override
+////                public void run() {
 
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
+            Thread t1 = new Thread(() -> {
+
                     try {
                         while (true) {  // цикл для авторизации клиентов
                             String str = in.readUTF();
                             if (str.startsWith("/auth ")) {
                                 String[] tokens = str.split(" ");
-                                String newNick = AuthService.getNickByLoginAndPass(tokens[1], tokens[2]);
-
-                                System.out.println("Ник полученный: " + newNick);
-                                StartServer.logger.log(Level.INFO, "Ник полученный: " + newNick);
+                                String newNick = DbService.getNickByLoginAndPass(tokens[1], tokens[2]);
 
                                 //// проверка правильности пары логин/пароль и того, что с таким ником пользователя нет в чате
                                 if (newNick != null) {
@@ -53,8 +59,8 @@ public class ClientHandler {
                                         nick = newNick;
                                         server.subscribe(ClientHandler.this);
 
-                                        System.out.println("Клиент " + nick + " подключился");
-                                        StartServer.logger.log(Level.INFO, "Клиент " + nick + " подключился");
+                                        //System.out.println("Клиент " + nick + " подключился");
+
 
                                         break;
                                     } else {
@@ -64,7 +70,7 @@ public class ClientHandler {
                                     sendMsg("Wrong Login/Password");
                                 }
                             }
-                            server.broadCastMsg(ClientHandler.this, nick + ": " + str);
+                            //server.broadCastMsg(ClientHandler.this, nick + ": " + str);
                         }
 
                         /////
@@ -75,6 +81,12 @@ public class ClientHandler {
                                 if (str.equals("/end")) {
                                     out.writeUTF("/serverclosed");
                                     break;
+                                }
+
+                                if (str.startsWith("/history")) {
+                                    StringBuilder stringBuilder = DbService.getHistoryChat();
+                                    out.writeUTF(stringBuilder.toString());
+
                                 }
                                 if (str.startsWith("/w ")) {
                                     String[] elements = str.split(" ", 3);
@@ -87,8 +99,10 @@ public class ClientHandler {
                                     sendMsg("Вы добавили пользователя " + elements[1] + " в чёрный список");
                                 }
                             } else {
+                                DbService.saveHistory(nick, str);
                                 server.broadCastMsg(ClientHandler.this, nick + ": " + str);
                             }
+                            System.out.println("Client: " + str);
                         }
 
                     } catch (IOException e) {
@@ -110,19 +124,18 @@ public class ClientHandler {
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
+                        server.unsubscribe(ClientHandler.this);
+                        server.broadCastMsg(ClientHandler.this, "Пользователь " + nick + " покинул чат");
+                        MainServer.logger.log(Level.INFO, "Пользователь " + nick + " покинул чат");////
+
                     }
-                    server.unsubscribe(ClientHandler.this);
-                    server.broadCastMsg(ClientHandler.this, "Пользователь " + nick + " покинул чат"); ////
-                    System.out.println("Клиент " + nick + " отключился");
 
-
-                }
-            }).start();
-
-        } catch (IOException e) {
+            });
+            t1.setDaemon(true);
+            t1.start();
+        }catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
 
@@ -134,14 +147,4 @@ public class ClientHandler {
             e.printStackTrace();
         }
     }
-
-
-    public String getNick() {
-        return nick;
-
-    }
-
-
-
-
 }
